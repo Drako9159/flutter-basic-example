@@ -1,5 +1,5 @@
-name: basic_flutter
-description: "A new Flutter project."
+name: imc_calculator
+description: "IMC Calculator"
 publish_to: 'none'
 version: 0.1.0
 
