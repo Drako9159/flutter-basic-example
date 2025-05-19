@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:imc_calculator/core/app_colors.dart';
 
 class HeightSelector extends StatefulWidget {
-  const HeightSelector({super.key});
+  final double selectedHeight;
+  final Function(double) onHeightChange;
+
+  const HeightSelector({
+    super.key,
+    required this.selectedHeight,
+    required this.onHeightChange,
+  });
 
   @override
   State<HeightSelector> createState() => _HeightSelectorState();
 }
 
 class _HeightSelectorState extends State<HeightSelector> {
-  double height = 170; // Default height value
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,16 +27,19 @@ class _HeightSelectorState extends State<HeightSelector> {
         ),
         child: Column(
           children: [
-            const Text(
-              "Height",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                "HEIGHT",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
             Text(
-              "${height.toStringAsFixed(0)} cm",
+              "${widget.selectedHeight.toStringAsFixed(0)} cm",
               style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
@@ -39,16 +47,14 @@ class _HeightSelectorState extends State<HeightSelector> {
               ),
             ),
             Slider(
-              value: height,
+              value: widget.selectedHeight,
               min: 100,
               max: 250,
               divisions: 70,
               activeColor: AppColors.primary,
-              label: "${height.toStringAsFixed(0)} cm",
-              onChanged: (value) {
-                setState(() {
-                  height = value;
-                });
+              label: "${widget.selectedHeight.toStringAsFixed(0)} cm",
+              onChanged: (newHeight) {
+                widget.onHeightChange(newHeight);
               },
             ),
           ],
